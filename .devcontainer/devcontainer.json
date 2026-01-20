@@ -7,7 +7,13 @@
 {
 	"name": "typescript-example",
 
-	"dockerComposeFile": "../compose.yml",
+	"dockerComposeFile": [
+		"../compose.yml",
+
+		// Merge `compose.claude.yml` to include Claude Code
+		// Comment this out if you want to exclude
+		"./compose.claude.yml"
+	],
 	"service": "service",
 	"workspaceFolder": "/workspace",
 
@@ -23,7 +29,7 @@
 	// Configure tool-specific properties
 	"customizations": {
 		"vscode": {
-			// Add the IDs of extensions you want installed when the container is created.
+			// Add the IDs of extensions you want installed when the container is created
 			"extensions": [
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode"
@@ -39,7 +45,10 @@
 	"forwardPorts": [ 3000 ],
 
 	// Command to run after the container is created
-	"postCreateCommand": "node --version",
+	// If Claude Code is enabled, attempt to intialize firewall
+	"postCreateCommand": "command -v claude >/dev/null 2>&1 && (sudo /usr/local/bin/init-firewall.sh && printf 'Claude Code: Enabled ✔\nFirewall Init: Success ✔\n' || printf 'Claude Code: Enabled ✔\nFirewall Init: ERROR ✘\n' ) || printf 'Claude Code: Not Enabled\n'; node --version | (echo -n 'node ' && cat);",
+	// This is to ensure firewall initialization is complete before moving forward
+	"waitFor": "postStartCommand",
 
 	// Set `remoteUser` to `root` to connect as root instead
 	// More info: https://aka.ms/dev-containers-non-root

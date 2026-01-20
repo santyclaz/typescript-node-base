@@ -1,0 +1,10 @@
+# this file is to enable claude code along with additional security protections
+services:
+  service:
+    # override included service
+    build:
+      target: dev-claude
+    # these are needed to allow `init-firewall.sh` to work
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW

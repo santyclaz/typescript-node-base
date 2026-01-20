@@ -35,6 +35,9 @@
      ```
      visit [http://localhost:3000/health](http://localhost:3000/health)
 
+**Note**: By default Claude Code is installed in the dev container. To disable, comment out `"./compose.claude.yml"` in [`.devcontainer/devcontainer.yml`](./.devcontainer/devcontainer.json).
+
 # Resources
 
 - [Ultimate Guide to Dev Containers](https://www.daytona.io/dotfiles/ultimate-guide-to-dev-containers)
+- [How to Safely Run AI Agents Like Cursor and Claude Code Inside a DevContainer](https://codewithandrea.com/articles/run-ai-agents-inside-devcontainer/)
