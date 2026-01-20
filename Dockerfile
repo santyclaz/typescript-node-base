@@ -1,5 +1,5 @@
 ARG VARIANT=24-trixie
-FROM node:${VARIANT}
+FROM node:${VARIANT} AS dev
 
 ARG NPM_GLOBAL=/usr/local/share/npm-global
 

@@ -7,7 +7,7 @@
 {
 	"name": "typescript-example",
 
-	"dockerComposeFile": "../docker-compose.yml",
+	"dockerComposeFile": "../compose.yml",
 	"service": "service",
 	"workspaceFolder": "/workspace",
 
@@ -31,12 +31,7 @@
 		},
 		"settings": {
 			"formatOnSave": true,
-			"[typescriptreact]": {
-				"editor.defaultFormatter": "esbenp.prettier-vscode"
-			},
-			"[typescript]": {
-				"editor.defaultFormatter": "esbenp.prettier-vscode"
-			}
+			"defaultFormatter": "esbenp.prettier-vscode"
 		}
 	},
 
