@@ -41,9 +41,6 @@
 		}
 	},
 
-	// List of ports inside the container to make available locally
-	"forwardPorts": [ 3000 ],
-
 	// Command to run after the container is created
 	// If Claude Code is enabled, attempt to intialize firewall
 	"postCreateCommand": "command -v claude >/dev/null 2>&1 && (sudo /usr/local/bin/init-firewall.sh && printf 'Claude Code: Enabled ✔\nFirewall Init: Success ✔\n' || printf 'Claude Code: Enabled ✔\nFirewall Init: ERROR ✘\n' ) || printf 'Claude Code: Not Enabled\n'; node --version | (echo -n 'node ' && cat);",
