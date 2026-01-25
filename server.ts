@@ -1,6 +1,6 @@
 import * as http from "http";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   if (req.method === "GET" && req.url === "/health") {
