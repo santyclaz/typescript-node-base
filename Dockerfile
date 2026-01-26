@@ -1,6 +1,8 @@
 ARG VARIANT=24-trixie
 FROM node:${VARIANT} AS dev
 
+ARG USERNAME=node
+
 ARG NPM_GLOBAL=/usr/local/share/npm-global
 
 # Add NPM global to PATH
@@ -12,6 +14,13 @@ RUN npm config -g set prefix ${NPM_GLOBAL}
 ARG NODE_PACKAGES="eslint tslint-to-eslint-config typescript"
 RUN npm install -g ${NODE_PACKAGES} \
 	&& npm cache clean --force > /dev/null 2>&1
+
+# For persisting bash history
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/cmdhistory/.bash_history" \
+	&& mkdir /cmdhistory \
+	&& touch /cmdhistory/.bash_history \
+	&& chown -R $USERNAME /cmdhistory \
+	&& echo "$SNIPPET" >> "/home/$USERNAME/.bashrc"
 
 WORKDIR "/workspace"
 
@@ -26,6 +35,10 @@ ARG CLAUDE_CODE_VERSION=latest
 
 # Install Claude
 RUN npm install -g @anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}
+
+# For persisting claude config
+RUN mkdir -p /home/$USERNAME/.claude \
+	&& chown -R node:node /home/$USERNAME/.claude
 
 # Install deps for firewall script
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -44,4 +57,4 @@ RUN mkdir -p /etc/sudoers.d
 RUN chmod +x /usr/local/bin/init-firewall.sh && \
 	echo "node ALL=(root) NOPASSWD: /usr/local/bin/init-firewall.sh" > /etc/sudoers.d/node-firewall && \
 	chmod 0440 /etc/sudoers.d/node-firewall
-USER node
+USER $USERNAME

@@ -31,6 +31,7 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created
 			"extensions": [
+				"anthropic.claude-code",
 				"dbaeumer.vscode-eslint",
 				"esbenp.prettier-vscode"
 			]
@@ -40,6 +41,17 @@
 			"defaultFormatter": "esbenp.prettier-vscode"
 		}
 	},
+
+	"mounts": [
+		// Volume to preserve command history
+		"source=cmdhistory-${devcontainerId},target=/cmdhistory,type=volume",
+		// Volume to preserve user-scope config
+		"source=claude-config-${devcontainerId},target=/home/node/.claude,type=volume"
+
+		// Uncomment below to use claude config from own local machine
+		// Bind mount for user-scope config
+		// "source=${localEnv:CLAUDE_CONFIG_USER_DIR:~/.claude},target=/home/node/.claude,type=bind"
+	],
 
 	// Command to run after the container is created
 	// If Claude Code is enabled, attempt to intialize firewall
