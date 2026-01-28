@@ -52,6 +52,14 @@
 		// Bind mount for user-scope config
 		// "source=${localEnv:CLAUDE_CONFIG_USER_DIR:~/.claude},target=/home/node/.claude,type=bind"
 	],
+	"containerEnv": {
+		// workaround to prevent needing to reauth on container rebuild
+		// https://github.com/anthropics/claude-code/issues/1736#issuecomment-3113994138
+		"CLAUDE_CONFIG_DIR": "/home/node/.claude",
+		// workaround for oauth callback bug
+		// https://github.com/anthropics/claude-code/issues/9376#issuecomment-3773860151
+		"NODE_OPTIONS": "--dns-result-order=ipv4first"
+	},
 
 	// Command to run after the container is created
 	// If Claude Code is enabled, attempt to intialize firewall
