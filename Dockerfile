@@ -1,6 +1,9 @@
 ARG VARIANT=24-trixie
 FROM node:${VARIANT} AS dev
 
+ARG TZ
+ENV TZ="$TZ"
+
 ARG USERNAME=node
 
 ARG NPM_GLOBAL=/usr/local/share/npm-global

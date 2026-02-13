@@ -8,5 +8,6 @@ services:
     ports:
       - "${PORT:-3000}:${PORT:-3000}" # webserver port
     environment:
+      TZ: "${TZ:-America/Los_Angeles}"
       PORT: "${PORT:-3000}"
     command: sleep infinity
