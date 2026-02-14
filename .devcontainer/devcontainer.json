@@ -46,11 +46,8 @@
 		// Volume to preserve command history
 		"source=cmdhistory-${devcontainerId},target=/cmdhistory,type=volume",
 		// Volume to preserve user-scope config
+		// Comment this out to use claude config from own local machine as defined by `compose.claude.yml`
 		"source=claude-config-${devcontainerId},target=/home/node/.claude,type=volume"
-
-		// Uncomment below to use claude config from own local machine
-		// Bind mount for user-scope config
-		// "source=${localEnv:CLAUDE_CONFIG_USER_DIR:~/.claude},target=/home/node/.claude,type=bind"
 	],
 	"containerEnv": {
 		// workaround to prevent needing to reauth on container rebuild

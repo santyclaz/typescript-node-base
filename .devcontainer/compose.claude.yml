@@ -4,6 +4,8 @@ services:
     # override included service
     build:
       target: dev-claude
+    volumes:
+      - ${CLAUDE_CONFIG_USER_DIR:-~/.claude}:/home/node/.claude
     # these are needed to allow `init-firewall.sh` to work
     cap_add:
       - NET_ADMIN
